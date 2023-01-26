@@ -5,9 +5,6 @@ var now = dayjs();
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
 $(function () {
-  // Set the default text of all textareas to empty
-  $("textarea").defaultValue = "";
-
   // Add listener to save buttons that saves input to local storage on click
   var saveBtn = $(".saveBtn");
   saveBtn.on("click", function (event) {
@@ -15,10 +12,10 @@ $(function () {
 
     // Get the time block containing the button that was clicked
     var timeBlock = $(this.closest(".time-block"));
-    var blockId = timeBlock.attr("id");
 
     // Get the text entered in the textarea
     var input = timeBlock.children("textarea").val();
+    var blockId = timeBlock.attr("id");
 
     // Save the input to local storage under the id name
     localStorage.setItem(blockId, input);
@@ -41,13 +38,13 @@ $(function () {
       currentBlock.addClass("past");
     }
 
+    // If there is input saved for this block in localStorage, set that input as the text
     var savedInput = localStorage.getItem(timeId);
-    // If there is input saved in localStorage, set that input as the text
     if (savedInput != null) {
-      currentBlock.children("textarea").text(savedInput);
+      currentBlock.children("textarea").val(savedInput);
     } else {
       // If nothing has been saved, set the text to be empty
-      currentBlock.children("textarea").text("");
+      currentBlock.children("textarea").val("");
     }
   }
 
