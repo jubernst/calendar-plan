@@ -43,7 +43,7 @@ $(function () {
     if (savedInput != null) {
       currentBlock.children("textarea").val(savedInput);
     } else {
-      // If nothing has been saved, set the text to be empty
+      // Otherwise set the textarea to be empty
       currentBlock.children("textarea").val("");
     }
   }
