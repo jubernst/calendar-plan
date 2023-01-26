@@ -15,6 +15,10 @@ $(function () {
 
     // Get the parent node
     var timeBlock = this.closest(".time-block");
+
+    // Following code does not work for no reason. consider not using jquery because it sucks
+    var input = timeBlock.children()[1]; // Get the value of the entered text
+    console.log(input);
   });
   //
   // TODO: Add code to apply the past, present, or future class to each time
@@ -23,10 +27,20 @@ $(function () {
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
   var container = $(".container-fluid");
-  // Loop through the container and set the time class of each block
+  // Set the class of each time block
   for (var i = 0; i < container.children().length; i++) {
-    var hour = container.children().eq(i).attr("id"); // returns hour-X
-    console.log(hour);
+    var currentBlock = container.children().eq(i);
+    // Get the hour of the block
+    var blockHour = dayjs().hour(currentBlock.attr("id").split("-")[1]);
+
+    // Check if the current hour is earlier than the hour of the block
+    if (now.isBefore(blockHour, "hour")) {
+      currentBlock.addClass("future");
+    } else if (now.isSame(blockHour, "hour")) {
+      currentBlock.addClass("present");
+    } else {
+      currentBlock.addClass("past");
+    }
   }
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
