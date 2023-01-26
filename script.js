@@ -1,3 +1,4 @@
+var now = dayjs();
 // Wrap all code that interacts with the DOM in a call to jQuery to ensure that
 // the code isn't run until the browser has finished rendering all the elements
 // in the html.
@@ -21,12 +22,18 @@ $(function () {
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
+  var container = $(".container-fluid");
+  // Loop through the container and set the time class of each block
+  for (var i = 0; i < container.children().length; i++) {
+    var hour = container.children().eq(i).attr("id"); // returns hour-X
+    console.log(hour);
+  }
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
   //
   // TODO: Add code to display the current date in the header of the page.
-  var currentDay = dayjs().format("dddd, MMMM D");
+  var currentDay = now.format("dddd, MMMM D");
   $("#currentDay").text(currentDay);
 });
