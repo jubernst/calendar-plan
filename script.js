@@ -13,14 +13,17 @@ $(function () {
   saveBtn.on("click", function (event) {
     event.preventDefault();
 
-    // Get the parent node
-    var timeBlock = this.closest(".time-block");
+    // Get the time block containing the button that was clicked
+    var timeBlock = $(this.closest(".time-block"));
+    var blockId = timeBlock.attr("id");
 
-    // Following code does not work for no reason. consider not using jquery because it sucks
-    var input = timeBlock.children()[1]; // Get the value of the entered text
-    console.log(input);
+    // Get the text entered in the textarea
+    var input = timeBlock.children("textarea").val();
+
+    // Save the input to local storage under the id name
+    localStorage.setItem(blockId, input);
   });
-  //
+
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
@@ -30,7 +33,6 @@ $(function () {
   // Set the class of each time block
   for (var i = 0; i < container.children().length; i++) {
     var currentBlock = container.children().eq(i);
-    // Get the hour of the block
     var blockHour = dayjs().hour(currentBlock.attr("id").split("-")[1]);
 
     // Check if the current hour is earlier than the hour of the block
